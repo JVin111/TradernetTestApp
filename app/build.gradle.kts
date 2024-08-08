@@ -53,6 +53,14 @@ android {
 }
 
 dependencies {
+    implementation(project(":screen-quote-list"))
+
+    implementation(project(":base-network"))
+    implementation(project(":data-remote"))
+    implementation(project(":data-remote-impl"))
+    implementation(project(":domain"))
+    implementation(project(":feature-quote-list"))
+    implementation(project(":screen-quote-list"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -62,13 +70,12 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.kotlinx.serialization)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.websocket)
     implementation(libs.ktor.serialization.json)
-    implementation(libs.kotlinx.serialization)
     implementation(libs.dagger.hilt.android)
+    implementation(libs.dagger.hilt.android.navigation.compose)
     kapt(libs.dagger.hilt.android.compiler)
 
 

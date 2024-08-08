@@ -21,4 +21,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "TradernetTestApp"
 include(":app")
- 
+include(":domain")
+include(":feature-quote-list")
+include(":screen-quote-list")
+include(":base-ui-kit")
+include(":data-remote")
+include(":data-remote-impl")
+include(":base-network")
+include(":presentation")
