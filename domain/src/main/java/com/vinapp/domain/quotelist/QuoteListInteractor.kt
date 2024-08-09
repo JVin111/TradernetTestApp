@@ -5,5 +5,4 @@ import kotlinx.coroutines.flow.Flow
 
 interface QuoteListInteractor {
     fun getQuoteListFlowByTickerList(tickerList: List<String>): Flow<List<UpdatableQuote>>
-    fun getQuoteListFlow(): Flow<List<UpdatableQuote>>
 }

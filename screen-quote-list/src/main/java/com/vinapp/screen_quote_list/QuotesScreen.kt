@@ -1,5 +1,6 @@
 package com.vinapp.screen_quote_list
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -17,6 +18,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -29,7 +31,9 @@ fun QuotesScreen() {
     val viewModel: QuotesScreenViewModel = hiltViewModel()
     val state = viewModel.screenStateFlow.collectAsState().value
 
-    QuotesScreenContent(state.quoteList)
+    QuotesScreenContent(
+        quoteItemList = state.quoteList
+    )
 }
 
 @Composable
@@ -41,12 +45,13 @@ private fun QuotesScreenContent(
             .fillMaxSize()
             .windowInsetsPadding(
                 WindowInsets.safeDrawing.only(WindowInsetsSides.Top)
-            ),
-        contentPadding = PaddingValues(horizontal = 8.dp)
+            )
+            .background(Color.White),
+        contentPadding = PaddingValues(8.dp)
     ) {
         itemsIndexed(
             items = quoteItemList,
-            key = { _, item -> item.tickerTitle }
+            key = { _, item -> item.tickerTitle },
         ) { index, item ->
             QuoteItem(
                 itemData = item

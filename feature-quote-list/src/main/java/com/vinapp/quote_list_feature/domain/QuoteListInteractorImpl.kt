@@ -16,14 +16,19 @@ class QuoteListInteractorImpl @Inject constructor(
     private var cachedQuotes: HashMap<String, UpdatableQuote?> = HashMap()
     
     override fun getQuoteListFlowByTickerList(tickerList: List<String>): Flow<List<UpdatableQuote>> {
-        cachedQuotes = tickerList.associateWith { null }.toMap(HashMap())
+        cachedQuotes = tickerList.associateWith {
+            UpdatableQuote(
+                ticker = it,
+                percentageChange = null,
+                exchangeName = null,
+                securityName = null,
+                lastTradePrice = null,
+                changeInPrice = null
+            )
+        }.toMap(HashMap())
         return subscribeOnQuoteUpdates(tickerList)
     }
 
-    override fun getQuoteListFlow(): Flow<List<UpdatableQuote>> {
-        return flowOf()
-    }
-    
     private fun subscribeOnQuoteUpdates(tickersList: List<String>): Flow<List<UpdatableQuote>> {
         return repository.getQuoteUpdatesFlow(
             tickerList = tickersList
