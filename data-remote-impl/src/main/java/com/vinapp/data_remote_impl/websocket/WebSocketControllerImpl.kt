@@ -2,6 +2,7 @@ package com.vinapp.data_remote_impl.websocket
 
 import android.util.Log
 import com.vinapp.base_network.websocket.WebSocketController
+import com.vinapp.base_network.websocket.WebSocketSessionState
 import com.vinapp.base_network.websocket.income.WebSocketEvent
 import com.vinapp.base_network.websocket.income.WebSocketEventData
 import com.vinapp.base_network.websocket.outgoing.WebSocketMessageParameters
@@ -29,7 +30,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -51,6 +54,15 @@ class WebSocketControllerImpl @Inject constructor(
         ignoreUnknownKeys = true
         explicitNulls = false
     }
+    override var state: MutableStateFlow<WebSocketSessionState> = MutableStateFlow(WebSocketSessionState.STOPPED)
+
+    init {
+        state
+            .onEach {
+                Log.d(WEB_SOCKET_TAG, "STATE: $it")
+            }
+            .launchIn(webSocketScope)
+    }
 
     override fun openSession() {
         socketJob = webSocketScope.launch {
@@ -59,7 +71,7 @@ class WebSocketControllerImpl @Inject constructor(
                 host = "wss.tradernet.com",
                 port = 8080,
             ) {
-                Log.d(WEB_SOCKET_TAG, "Open session")
+                state.emit(WebSocketSessionState.STARTED)
                 sessionStateFlow.emit(this)
                 incoming.consumeAsFlow()
                     .collect { frame ->
@@ -68,7 +80,6 @@ class WebSocketControllerImpl @Inject constructor(
                                 frame as Frame.Text
                                 Log.d(WEB_SOCKET_TAG, "Text frame: ${frame.readText()}")
                                 val event = format.decodeFromString(WebSocketEventSerializer, frame.readText())
-                                Log.d(WEB_SOCKET_TAG, "event: $event")
                                 eventsFlow.emit(event)
                             }
                             FrameType.BINARY -> {}
@@ -80,13 +91,17 @@ class WebSocketControllerImpl @Inject constructor(
                         }
                     }
             }
-            Log.d(WEB_SOCKET_TAG, "Session closed")
+            state.emit(WebSocketSessionState.STOPPED)
         }
     }
 
     override fun closeSession() {
         webSocketScope.launch {
             sessionStateFlow.value?.close()
+            socketJob?.cancel()
+            if (state.value != WebSocketSessionState.PAUSED) {
+                state.emit(WebSocketSessionState.STOPPED)
+            }
         }
     }
 

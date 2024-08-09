@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,9 +19,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.vinapp.base_ui_kit.theme.Green
+import com.vinapp.base_ui_kit.theme.Red
+import com.vinapp.domain.entity.UpdatableQuote
 
 @Composable
 fun QuoteItem(
@@ -30,6 +34,7 @@ fun QuoteItem(
     itemData: QuoteItemData
 ) {
     val shape = remember { RoundedCornerShape(8.dp) }
+    val color = remember(itemData.isGrowing) { if (itemData.isGrowing) Green else Red }
 
     Row(
         modifier = modifier,
@@ -48,13 +53,14 @@ fun QuoteItem(
                 )
                 Box(modifier = Modifier
                     .clip(shape)
-                    .background(Color.Green)
+                    .background(color)
                 ) {
                     Text(
                         modifier = Modifier.padding(
                             horizontal = 4.dp,
                             vertical = 1.dp),
-                        text = "${itemData.percentageChange}%"
+                        text = "${itemData.percentageChange}%",
+                        color = Color.White,
                     )
                 }
             }
@@ -65,14 +71,34 @@ fun QuoteItem(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
+                    modifier = Modifier.weight(1F),
                     text = itemData.subtitle,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    fontSize = 10.sp,
+                    color = Color.Gray
                 )
-                Text(
-                    text = itemData.valueChange
-                )
-
+                Row(
+                    modifier = Modifier.weight(1F),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    itemData.lastTradePrice?.let {
+                        Text(
+                            text = it,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            fontSize = 10.sp
+                        )
+                    }
+                    itemData.lastTradePrice?.let {
+                        Text(
+                            text = " ($it)",
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            fontSize = 10.sp
+                        )
+                    }
+                }
             }
         }
         Box(
@@ -115,11 +141,14 @@ private fun Ticker(
 private fun QuoteItemPreview() {
     QuoteItem(
         itemData = QuoteItemData(
-            tickerIcon = "Asd",
-            tickerTitle = "ASD",
-            subtitle = "MCX | Asdfgh",
-            percentageChange = 4.56F,
-            valueChange = "1.23456 (0.23456)"
+            UpdatableQuote(
+                ticker = "ASD",
+                percentageChange = 4.56F,
+                exchangeName = "MCX",
+                securityName = "Asdfghjkl",
+                lastTradePrice = 1234.56F,
+                changeInPrice = 0.987F
+            )
         )
     )
 }

@@ -15,30 +15,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.vinapp.base_ui_kit.qouteitem.QuoteItem
 import com.vinapp.base_ui_kit.qouteitem.QuoteItemData
-import com.vinapp.data_remote_impl.QuoteRemoteSourceImpl
-import com.vinapp.data_remote_impl.websocket.WebSocketControllerImpl
-import com.vinapp.domain.quotelist.QuoteListInteractor
-import com.vinapp.quote_list_feature.data.QuoteListRepositoryImpl
-import com.vinapp.quote_list_feature.domain.QuoteListInteractorImpl
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.plugins.websocket.WebSockets
-import io.ktor.serialization.kotlinx.KotlinxWebsocketSerializationConverter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.serialization.json.Json
 
 @Composable
 fun QuotesScreen() {
@@ -94,8 +77,10 @@ private fun QuotesScreenPreview() {
                     tickerIcon = "",
                     tickerTitle = "TITLE$it",
                     subtitle = "MCX | Subtitle",
-                    percentageChange = 4.56F,
-                    valueChange = "1.23456 (0.23456)"
+                    percentageChange = 4.56F.toString(),
+                    isGrowing = true,
+                    lastTradePrice = "1.23456",
+                    priceChange = "0.23456"
                 ))
             }
         }

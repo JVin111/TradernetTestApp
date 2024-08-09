@@ -1,7 +1,7 @@
 package com.vinapp.data_remote.entity.websocketevent
 
 import com.vinapp.base_network.websocket.income.WebSocketEventData
-import com.vinapp.domain.entity.Quote
+import com.vinapp.domain.entity.UpdatableQuote
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -14,13 +14,13 @@ data class NetworkQuote(
     @SerialName("ltp") val lastTradePrice: Float?,
     @SerialName("chg") val changeInPrice: Float?
 ) : WebSocketEventData {
-    fun toDomain(existingQuote: Quote? = null) =
-        Quote(
+    fun toDomain() =
+        UpdatableQuote(
             ticker = ticker,
-            percentageChange = percentageChange ?: existingQuote?.percentageChange ?: 0.0F,
-            exchangeName = exchangeName ?: existingQuote?.exchangeName ?: "",
-            securityName = securityName ?: existingQuote?.securityName ?: "",
-            lastTradePrice = lastTradePrice ?: existingQuote?.lastTradePrice ?: 0.0F,
-            changeInPrice = changeInPrice ?: existingQuote?.changeInPrice ?: 0.0F
+            percentageChange = percentageChange,
+            exchangeName = exchangeName,
+            securityName = securityName,
+            lastTradePrice = lastTradePrice,
+            changeInPrice = changeInPrice
         )
 }

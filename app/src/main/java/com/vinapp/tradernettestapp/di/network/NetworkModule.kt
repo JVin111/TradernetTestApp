@@ -1,6 +1,8 @@
 package com.vinapp.tradernettestapp.di.network
 
 import com.vinapp.base_network.websocket.WebSocketController
+import com.vinapp.base_network.websocket.WebSocketSessionManager
+import com.vinapp.base_network.websocket.WebSocketSessionManagerImpl
 import com.vinapp.data_remote_impl.websocket.WebSocketControllerImpl
 import dagger.Binds
 import dagger.Module
@@ -32,4 +34,8 @@ abstract class NetworkModule {
     @Singleton
     @Binds
     abstract fun bindWebSocketController(impl: WebSocketControllerImpl): WebSocketController
+
+    @Singleton
+    @Binds
+    abstract fun bindWebSocketSessionManger(impl: WebSocketSessionManagerImpl): WebSocketSessionManager
 }

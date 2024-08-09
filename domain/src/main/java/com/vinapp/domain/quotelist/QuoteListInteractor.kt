@@ -1,8 +1,9 @@
 package com.vinapp.domain.quotelist
 
-import com.vinapp.domain.entity.Quote
+import com.vinapp.domain.entity.UpdatableQuote
 import kotlinx.coroutines.flow.Flow
 
 interface QuoteListInteractor {
-    fun getQuoteListFlow(): Flow<List<Quote>>
+    fun getQuoteListFlowByTickerList(tickerList: List<String>): Flow<List<UpdatableQuote>>
+    fun getQuoteListFlow(): Flow<List<UpdatableQuote>>
 }
