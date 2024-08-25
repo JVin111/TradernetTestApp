@@ -1,5 +1,8 @@
 package com.vinapp.tradernettestapp.di.network
 
+import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
 import com.vinapp.base_network.websocket.WebSocketController
 import com.vinapp.base_network.websocket.WebSocketSessionManager
 import com.vinapp.base_network.websocket.WebSocketSessionManagerImpl
@@ -28,6 +31,14 @@ abstract class NetworkModule {
                     contentConverter = KotlinxWebsocketSerializationConverter(Json)
                 }
             }
+        }
+
+        @Singleton
+        @Provides
+        fun provideConnectivityManager(
+            application: Application
+        ): ConnectivityManager {
+            return application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         }
     }
 

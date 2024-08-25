@@ -20,6 +20,7 @@ import io.ktor.websocket.close
 import io.ktor.websocket.readReason
 import io.ktor.websocket.readText
 import io.ktor.websocket.send
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -45,7 +46,10 @@ class WebSocketControllerImpl @Inject constructor(
     private val client: HttpClient
 ) : WebSocketController {
 
-    private val webSocketScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val webSocketExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        Log.w(WEB_SOCKET_TAG, throwable)
+    }
+    private val webSocketScope = CoroutineScope(SupervisorJob() + Dispatchers.IO + webSocketExceptionHandler)
     private var socketJob: Job? = null
     private var eventsFlow: MutableSharedFlow<WebSocketEvent?> = MutableStateFlow(null)
     private var sessionStateFlow: MutableStateFlow<WebSocketSession?> = MutableStateFlow(null)
@@ -99,9 +103,7 @@ class WebSocketControllerImpl @Inject constructor(
         webSocketScope.launch {
             sessionStateFlow.value?.close()
             socketJob?.cancel()
-            if (state.value != WebSocketSessionState.PAUSED) {
-                state.emit(WebSocketSessionState.STOPPED)
-            }
+            state.emit(WebSocketSessionState.STOPPED)
         }
     }
 
