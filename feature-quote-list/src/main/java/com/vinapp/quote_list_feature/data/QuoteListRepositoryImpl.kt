@@ -50,7 +50,8 @@ class QuoteListRepositoryImpl @Inject constructor(
                     exchangeName = null,
                     securityName = null,
                     lastTradePrice = null,
-                    changeInPrice = null
+                    changeInPrice = null,
+                    minStep = null
                 )
             }
         )

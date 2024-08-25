@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.vinapp.domain.entity.UpdatableQuote
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 @Entity(
     tableName = "quote"
@@ -22,15 +23,20 @@ data class QuoteEntity(
     @ColumnInfo(name = "last_trade_price")
     val lastTradePrice: BigDecimal?,
     @ColumnInfo(name = "change_in_price")
-    val changeInPrice: BigDecimal?
+    val changeInPrice: BigDecimal?,
+    @ColumnInfo(name = "min_step")
+    val minStep: BigDecimal?
 ) {
-    fun toDomain() =
-        UpdatableQuote(
-            ticker = ticker,
-            percentageChange = percentageChange,
-            exchangeName = exchangeName,
-            securityName = securityName,
-            lastTradePrice = lastTradePrice,
-            changeInPrice = changeInPrice
-        )
+    fun toDomain() = UpdatableQuote(
+        ticker = ticker,
+        percentageChange = percentageChange,
+        exchangeName = exchangeName,
+        securityName = securityName,
+        lastTradePrice = minStep?.let { step ->
+            lastTradePrice?.divide(step, 0, RoundingMode.HALF_UP)?.multiply(step)
+        },
+        changeInPrice = minStep?.let { step ->
+            changeInPrice?.divide(step, 0, RoundingMode.HALF_UP)?.multiply(step)
+        }
+    )
 }

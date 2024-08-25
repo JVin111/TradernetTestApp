@@ -16,6 +16,6 @@ object BigDecimalSerializer : KSerializer<BigDecimal> {
     }
 
     override fun deserialize(decoder: Decoder): BigDecimal {
-        return decoder.decodeFloat().toBigDecimal()
+        return decoder.decodeFloat().toBigDecimal().stripTrailingZeros()
     }
 }

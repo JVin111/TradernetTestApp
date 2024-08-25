@@ -12,6 +12,7 @@ object QuoteMapper {
         exchangeName = quote.exchangeName,
         securityName = quote.securityName,
         lastTradePrice = quote.lastTradePrice,
-        changeInPrice = quote.changeInPrice
+        changeInPrice = quote.changeInPrice,
+        minStep = quote.minStep
     )
 }

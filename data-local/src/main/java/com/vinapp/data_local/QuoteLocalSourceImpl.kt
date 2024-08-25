@@ -16,6 +16,7 @@ class QuoteLocalSourceImpl @Inject constructor(
             securityName = quote.securityName,
             lastTradePrice = quote.lastTradePrice,
             changeInPrice = quote.changeInPrice,
+            minStep = quote.minStep
         )
     }
 

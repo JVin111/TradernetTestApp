@@ -21,5 +21,8 @@ data class NetworkQuote(
     val lastTradePrice: BigDecimal?,
     @SerialName("chg")
     @Serializable(with = BigDecimalSerializer::class)
-    val changeInPrice: BigDecimal?
+    val changeInPrice: BigDecimal?,
+    @SerialName("min_step")
+    @Serializable(with = BigDecimalSerializer::class)
+    val minStep: BigDecimal?
 ) : WebSocketEventData
