@@ -58,6 +58,7 @@ dependencies {
     implementation(project(":base-network"))
     implementation(project(":data-remote"))
     implementation(project(":data-remote-impl"))
+    implementation(project(":data-local"))
     implementation(project(":domain"))
     implementation(project(":feature-quote-list"))
     implementation(project(":screen-quote-list"))
@@ -77,6 +78,9 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     implementation(libs.dagger.hilt.android.navigation.compose)
     kapt(libs.dagger.hilt.android.compiler)
+    implementation(libs.room)
+    implementation(libs.room.ktx)
+    kapt(libs.room.compiler)
 
 
     testImplementation(libs.junit)

@@ -244,8 +244,8 @@ private fun QuoteItemPreview() {
                 percentageChange = 4.56F,
                 exchangeName = "MCX",
                 securityName = "Asdfghjkl",
-                lastTradePrice = 123.45678F,
-                changeInPrice = 0.987F
+                lastTradePrice = 123.45678F.toBigDecimal(),
+                changeInPrice = 0.987F.toBigDecimal()
             )
         )
     )

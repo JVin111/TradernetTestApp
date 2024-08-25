@@ -23,7 +23,7 @@ data class QuoteItemData(
             }
         },
         isGrowing = quote.percentageChange?.let { it >= 0.0F } ?: true,
-        lastTradePrice = quote.lastTradePrice?.toBigDecimal()?.toString() ?: "-",
-        priceChange = quote.changeInPrice?.toBigDecimal()?.toString() ?: "-"
+        lastTradePrice = quote.lastTradePrice?.toString() ?: "-",
+        priceChange = quote.changeInPrice?.toString() ?: "-"
     )
 }

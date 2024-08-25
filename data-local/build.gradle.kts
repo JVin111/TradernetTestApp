@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.vinapp.feature_quote_list"
+    namespace = "com.vinapp.local_source"
     compileSdk = 34
 
     defaultConfig {
@@ -36,15 +36,14 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":data-remote"))
-    implementation(project(":data-remote-impl"))
-    implementation(project(":data-local"))
-    implementation(project(":base-network"))
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    testImplementation(libs.junit)
+    implementation(libs.room)
+    implementation(libs.room.ktx)
+    kapt(libs.room.compiler)
     implementation(libs.dagger.hilt.android)
     implementation(libs.dagger.hilt.android.navigation.compose)
     kapt(libs.dagger.hilt.android.compiler)
-
-    testImplementation(libs.junit)
 }

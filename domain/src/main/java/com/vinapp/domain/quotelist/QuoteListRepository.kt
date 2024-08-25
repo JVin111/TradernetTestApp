@@ -4,5 +4,5 @@ import com.vinapp.domain.entity.UpdatableQuote
 import kotlinx.coroutines.flow.Flow
 
 interface QuoteListRepository {
-    fun getQuoteUpdatesFlow(tickerList: List<String>): Flow<UpdatableQuote>
+    fun getQuoteListFlow(tickerList: List<String>): Flow<List<UpdatableQuote>>
 }
