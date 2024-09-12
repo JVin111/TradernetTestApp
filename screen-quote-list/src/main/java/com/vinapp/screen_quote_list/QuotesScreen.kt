@@ -52,7 +52,11 @@ private fun QuotesScreenContent(
                 WindowInsets.safeDrawing.only(WindowInsetsSides.Top)
             )
             .background(Color.White),
-        contentPadding = PaddingValues(8.dp)
+        contentPadding = PaddingValues(
+            start = 8.dp,
+            top = 8.dp,
+            bottom = 8.dp
+        )
     ) {
         val quoteItemList = derivedStateOf {
             screenState.value.quoteList
@@ -86,8 +90,9 @@ fun QuoteItemWithDivider(
         if (showDivider) {
             HorizontalDivider(
                 modifier = Modifier.padding(
-                    horizontal = 8.dp,
-                    vertical = 8.dp
+                    start = 8.dp,
+                    top = 8.dp,
+                    bottom = 8.dp
                 )
             )
         }
