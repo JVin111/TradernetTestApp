@@ -6,7 +6,7 @@ import android.net.ConnectivityManager
 import com.vinapp.base_network.websocket.WebSocketController
 import com.vinapp.base_network.websocket.WebSocketSessionManager
 import com.vinapp.base_network.websocket.WebSocketSessionManagerImpl
-import com.vinapp.data_remote_impl.websocket.WebSocketControllerImpl
+import com.vinapp.data.source.remote.websocket.WebSocketControllerImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

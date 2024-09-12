@@ -1,7 +1,7 @@
 package com.vinapp.tradernettestapp.di.data.remote
 
-import com.vinapp.data_remote.QuoteRemoteSource
-import com.vinapp.data_remote_impl.QuoteRemoteSourceImpl
+import com.vinapp.data.source.remote.QuoteRemoteSource
+import com.vinapp.data.source.remote.QuoteRemoteSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -38,7 +38,6 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":base-network"))
-    implementation(project(":data-remote"))
 
     implementation(libs.kotlinx.serialization)
     implementation(libs.ktor.client.core)

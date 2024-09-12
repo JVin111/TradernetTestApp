@@ -36,9 +36,7 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":data-remote"))
-    implementation(project(":data-remote-impl"))
-    implementation(project(":data-local"))
+    implementation(project(":data"))
     implementation(project(":base-network"))
 
     implementation(libs.androidx.core.ktx)

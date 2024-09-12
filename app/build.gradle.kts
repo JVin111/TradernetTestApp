@@ -53,15 +53,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":screen-quote-list"))
-
     implementation(project(":base-network"))
-    implementation(project(":data-remote"))
-    implementation(project(":data-remote-impl"))
-    implementation(project(":data-local"))
+    implementation(project(":data"))
     implementation(project(":domain"))
-    implementation(project(":feature-quote-list"))
-    implementation(project(":screen-quote-list"))
+    implementation(project(":presentation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

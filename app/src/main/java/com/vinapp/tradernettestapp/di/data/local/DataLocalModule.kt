@@ -1,7 +1,7 @@
 package com.vinapp.tradernettestapp.di.data.local
 
-import com.vinapp.data_local.QuoteLocalSource
-import com.vinapp.data_local.QuoteLocalSourceImpl
+import com.vinapp.data.source.local.QuoteLocalSource
+import com.vinapp.data.source.local.QuoteLocalSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -46,8 +46,6 @@ dependencies {
     implementation(project(":base-ui-kit"))
     implementation(project(":feature-quote-list"))
 
-    implementation(project(":data-remote"))
-    implementation(project(":data-remote-impl"))
     implementation(project(":base-network"))
     implementation(libs.kotlinx.serialization)
     implementation(libs.ktor.client.core)

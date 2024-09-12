@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.vinapp.base_network.websocket.WebSocketSessionManager
-import com.vinapp.screen_quote_list.QuotesScreen
+import com.vinapp.presentation.quote_list_screen.QuotesScreen
 import com.vinapp.tradernettestapp.utils.ConnectivityHelper
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
